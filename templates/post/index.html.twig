@@ -4,6 +4,7 @@
 
 {% block body %}
 <div class="container">
+    <a href="{{path("post.create")}}" class="btn btn-primary">Add new post</a>
     <div class="row">
         {% for post in postList %}
             <div class="col-md-3 mt-2">
