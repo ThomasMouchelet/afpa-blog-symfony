@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% for post in postList %}
+            <div class="col-md-3 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{post.title | upper() }}</h5>
+                        <span>{{post.createdAt | date("d/m/Y") }}</span>
+                        <p>
+                            {{post.content}}
+                        </p>
+                        <a href="/posts/2/delete" class="btn btn-danger">Delete</a>                                                
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
