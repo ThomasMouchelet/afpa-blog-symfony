@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\PostFormType;
 use App\Repository\PostRepository;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,21 +49,11 @@ class PostController extends AbstractController
     #[Route('/posts/create', name: "post.create")]
     public function form(Request $request, Post $post = null)
     {
-        if (is_null($post)) {
+        if (!$post) {
             $post = new Post();
         }
 
-        $formBuilder = $this->createFormBuilder($post);
-        $formBuilder
-            ->add("title", TypeTextType::class, [
-                "label" => "Entrez un titre"
-            ])
-            ->add("content")
-            ->add('submit', SubmitType::class, [
-                "label" => is_null($post->getId()) ? "Ajouter" : "Modifier"
-            ]);
-
-        $form = $formBuilder->getForm();
+        $form = $this->createForm(PostFormType::class, $post);
 
         $form->handleRequest($request);
 
@@ -83,7 +72,7 @@ class PostController extends AbstractController
 
         return $this->render('post/form.html.twig', [
             'form' => $form->createView(),
-            "isCreated" => is_null($post->getId())
+            "isCreated" => !$post->getId()
         ]);
     }
 }
