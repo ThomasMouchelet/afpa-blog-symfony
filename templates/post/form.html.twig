@@ -1,12 +1,25 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <div class="container">
-        <h1>Add new post</h1>
+	<div class="container">
 
-        <form action="{{path('post.create')}}" method="post">
-            <input name="title" type="text" />
-            <input type="submit" >
-        </form>
-    </div>
- {% endblock %}
+		<h1>{{ (isCreated) ? "Create new" : "Update" }}
+			post</h1>
+
+		{{form_start(form)}}
+		<div>
+			{{form_label(form.title, null,{
+                 'label_attr': {
+                    'class': 'form-label'
+                }
+            })}}
+			{{form_widget(form.title , {
+                'attr': {
+                    'class': 'form-control'
+                }
+            })}}
+		</div>
+		{{form_row(form.content)}}
+		{{form_end(form)}}
+	</div>
+{% endblock %}

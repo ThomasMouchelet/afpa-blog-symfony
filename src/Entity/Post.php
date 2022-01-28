@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -14,6 +15,7 @@ class Post
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(min: 2, max: 40, minMessage: "Entrez au minimum 2 charactères", maxMessage: "40 charactères maximum")]
     private $title;
 
     #[ORM\Column(type: 'datetime')]
