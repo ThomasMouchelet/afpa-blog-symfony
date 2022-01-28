@@ -31,6 +31,13 @@ class PostController extends AbstractController
         ]);
     }
 
+
+    #[Route('/posts/{id}', name: "post.show")]
+    public function show(Post $post)
+    {
+        return $this->render('post/show.html.twig', ['post' => $post]);
+    }
+
     #[Route('/posts/{id}/delete', name: "post.delete")]
     public function delete(Request $request, PostRepository $postRepo, $id, Post $post)
     {
