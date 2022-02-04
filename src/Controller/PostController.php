@@ -31,8 +31,8 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/posts/create', name: "post.create")]
-    #[Route('/posts/{id}/update', name: "post.update")]
+    #[Route('admin/posts/create', name: "post.create")]
+    #[Route('admin/posts/{id}/update', name: "post.update")]
     public function form(Request $request, Post $post = null)
     {
         if (!$post) {
@@ -68,7 +68,7 @@ class PostController extends AbstractController
         return $this->render('post/show.html.twig', ['post' => $post]);
     }
 
-    #[Route('/posts/{id}/delete', name: "post.delete")]
+    #[Route('admin/posts/{id}/delete', name: "post.delete")]
     public function delete(Request $request, PostRepository $postRepo, $id, Post $post)
     {
         // 1 : Transmettre l'id dans twig
