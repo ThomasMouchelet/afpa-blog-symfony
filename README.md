@@ -4,7 +4,7 @@ git clone https://github.com/ThomasMouchelet/afpa-blog-symfony
 ```
 ```bash
 composer install
-npm insatall
+npm install
 ```
 ```bash
 php bin/console doctrine:database:create
