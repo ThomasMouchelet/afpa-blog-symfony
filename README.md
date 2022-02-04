@@ -18,6 +18,11 @@ php bin/console doctrine:fixtures:load
 php -S 127.0.0.1:8000 -t ./public
 ```
 
+```bash
+php bin/console doctrine:database:drop --force
+```
+
+
 # Create form
 ```bash
 php bin/console make:form

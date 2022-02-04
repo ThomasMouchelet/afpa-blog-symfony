@@ -24,36 +24,15 @@ class PostController extends AbstractController
     #[Route('/', name: 'post.index')]
     public function index(PostRepository $postRepo): Response
     {
-        $postList = $postRepo->findAll();
+        $postList = $postRepo->findBy([], ['createdAt' => 'DESC']);
 
         return $this->render('post/index.html.twig', [
             'postList' => $postList
         ]);
     }
 
-
-    #[Route('/posts/{id}', name: "post.show")]
-    public function show(Post $post)
-    {
-        return $this->render('post/show.html.twig', ['post' => $post]);
-    }
-
-    #[Route('/posts/{id}/delete', name: "post.delete")]
-    public function delete(Request $request, PostRepository $postRepo, $id, Post $post)
-    {
-        // 1 : Transmettre l'id dans twig
-        // 2 : Récupérer le post en fonction de l'id
-        // $id = $request->get('id');
-        // $post = $postRepo->findOneBy(['id' => $id]);
-        // 3 : delete with repository
-        $this->em->remove($post);
-        $this->em->flush();
-        // 4 : redirect to route index
-        return $this->redirectToRoute('post.index');
-    }
-
-    #[Route('/posts/{id}/update', name: "post.update")]
     #[Route('/posts/create', name: "post.create")]
+    #[Route('/posts/{id}/update', name: "post.update")]
     public function form(Request $request, Post $post = null)
     {
         if (!$post) {
@@ -81,5 +60,25 @@ class PostController extends AbstractController
             'form' => $form->createView(),
             "isCreated" => !$post->getId()
         ]);
+    }
+
+    #[Route('/posts/{id}', name: "post.show")]
+    public function show(Post $post)
+    {
+        return $this->render('post/show.html.twig', ['post' => $post]);
+    }
+
+    #[Route('/posts/{id}/delete', name: "post.delete")]
+    public function delete(Request $request, PostRepository $postRepo, $id, Post $post)
+    {
+        // 1 : Transmettre l'id dans twig
+        // 2 : Récupérer le post en fonction de l'id
+        // $id = $request->get('id');
+        // $post = $postRepo->findOneBy(['id' => $id]);
+        // 3 : delete with repository
+        $this->em->remove($post);
+        $this->em->flush();
+        // 4 : redirect to route index
+        return $this->redirectToRoute('post.index');
     }
 }
