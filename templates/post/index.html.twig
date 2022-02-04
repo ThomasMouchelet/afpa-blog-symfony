@@ -17,8 +17,10 @@
 							<p>
 								{{post.content}}
 							</p>
-							<a href="{{path("post.delete", {id: post.id})}}" class="btn btn-danger">Delete</a>
-							<a href="{{path('post.update', {id: post.id})}}" class="btn btn-secondary">Edit</a>
+							{% if is_granted('ROLE_ADMIN') %}
+								<a href="{{path("post.delete", {id: post.id})}}" class="btn btn-danger">Delete</a>
+								<a href="{{path('post.update', {id: post.id})}}" class="btn btn-secondary">Edit</a>
+							{% endif %}
 						</div>
 					</div>
 				</div>
